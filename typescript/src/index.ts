@@ -1,8 +1,8 @@
 type Category ={
   name:string
 }
-type Shipment={
-  status:'FREE' | 'CORREIOS' | 'PAC' | 'AMAZON'
+enum Shipment{
+  CORREIOS
 }
 type Product ={
   name:string,
@@ -23,7 +23,5 @@ const product:Product = {
   category:{  //objeto
     name:"futebol"
   },
-  shipment:{
-    status: 'CORREIOS'
-  }
+  shipment:Shipment.CORREIOS
 }
