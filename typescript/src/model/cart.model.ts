@@ -5,10 +5,19 @@ interface listProduct{
 }
 export class Cart{
     constructor(public listProduct:listProduct[]=[]){
-        
+
     }
 
     addItem(product:Product, quantity:number){
-        this.listProduct = [{product, quantity}]
-    }
+        this.listProduct.forEach((item)=>{
+            if (item.product.title === product.title){
+            const newItem = {
+                product:item.product,
+                quantity:item.quantity + quantity
+            }
+            return newItem
+            }
+            return item
+        })
+}
 }
