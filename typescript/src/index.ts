@@ -1,20 +1,29 @@
 type Category ={
   name:string
 }
+type Shipment={
+  status:'FREE' | 'CORREIOS' | 'PAC' | 'AMAZON'
+}
 type Product ={
   name:string,
-  price:number,
+  img:string,
   description:string,
   isActive:boolean,
-  category:Category
+  category:Category,
+  descount:number,
+  shipment:Shipment
 }
 
 const product:Product = {
   name: "teste",
-  price: 20.2,
+  descount:20,
+  img:'jjj',
   description:"description",
   isActive: true,
   category:{  //objeto
     name:"futebol"
+  },
+  shipment:{
+    status: 'CORREIOS'
   }
 }
