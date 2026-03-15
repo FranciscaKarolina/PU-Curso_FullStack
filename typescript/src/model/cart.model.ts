@@ -9,15 +9,19 @@ export class Cart{
     }
 
     addItem(product:Product, quantity:number){
-        this.listProduct.forEach((item)=>{
-            if (item.product.title === product.title){
-            const newItem = {
-                product:item.product,
-                quantity:item.quantity + quantity
-            }
-            return newItem
-            }
-            return item
-        })
-}
+        const existItem = this.listProduct.findIndex((item)=> item.product.title === product.title) > -1
+        if(existItem){
+            this.listProduct = this.listProduct.map((item)=>{
+                if(item.product.title === product.title){
+                    return {
+                        product,
+                        quantity:item.quantity + quantity
+                    }
+                }
+                return item
+            })
+        }else{
+            this.listProduct.push({product, quantity})
+        }    
+    }
 }
