@@ -7,10 +7,10 @@ class Cart {
         this.listProduct = listProduct;
     }
     addItem(product, quantity) {
-        const existItem = this.listProduct.findIndex((item) => item.product.title === product.title) > -1;
+        const existItem = this.listProduct.findIndex((item) => item.product.name === product.name) > -1;
         if (existItem) {
             this.listProduct = this.listProduct.map((item) => {
-                if (item.product.title === product.title) {
+                if (item.product.name === product.name) {
                     return {
                         product,
                         quantity: item.quantity + quantity
@@ -22,6 +22,16 @@ class Cart {
         else {
             this.listProduct.push({ product, quantity });
         }
+    }
+    getTotalItems() {
+        return this.listProduct.reduce((total, item) => {
+            return total + item.quantity;
+        }, 0);
+    }
+    getFinalPrice() {
+        return this.listProduct.reduce((total, item) => {
+            return total + (item.product.price * item.quantity);
+        }, 0);
     }
 }
 exports.Cart = Cart;

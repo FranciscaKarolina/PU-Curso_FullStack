@@ -1,5 +1,6 @@
 export declare class Category {
-    title: string;
-    constructor(title: string);
+    id: number;
+    name: string;
+    constructor(id: number, name: string);
 }
 //# sourceMappingURL=category.model.d.ts.map

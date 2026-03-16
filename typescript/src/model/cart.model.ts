@@ -9,10 +9,10 @@ export class Cart{
     }
 
     addItem(product:Product, quantity:number){
-        const existItem = this.listProduct.findIndex((item)=> item.product.title === product.title) > -1
+        const existItem = this.listProduct.findIndex((item)=> item.product.name === product.name) > -1
         if(existItem){
             this.listProduct = this.listProduct.map((item)=>{
-                if(item.product.title === product.title){
+                if(item.product.name === product.name){
                     return {
                         product,
                         quantity:item.quantity + quantity
@@ -23,5 +23,15 @@ export class Cart{
         }else{
             this.listProduct.push({product, quantity})
         }    
+    }
+    getTotalItems(): number{
+        return this.listProduct.reduce((total, item)=>{
+            return total + item.quantity
+        }, 0)
+    }
+    getFinalPrice(): number{
+        return this.listProduct.reduce((total, item) =>{
+            return total + (item.product.price * item.quantity)
+        }, 0)
     }
 }

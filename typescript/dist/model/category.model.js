@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
 class Category {
-    title;
-    constructor(title) {
-        this.title = title;
+    id;
+    name;
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
     }
 }
 exports.Category = Category;
