@@ -13,6 +13,9 @@ export default {
         addItem(){
             this.cart.total += 1
         },
+        decItem(){
+            this.cart.total -= 1
+        },
     },
 }
 
@@ -24,7 +27,8 @@ export default {
             <h1>Carrinho</h1>
             <p>total:{{ cart.total + 1}}</p>
         </article>
-        <button @click="addItem">Adicionar</button>
+        <button @click="addItem()">Adicionar</button>
+        <button @click="decItem()">Decrementar</button>
     </main>
 </template>  
 
