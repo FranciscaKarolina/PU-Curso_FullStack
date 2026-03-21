@@ -1,4 +1,5 @@
 <script lang="ts">
+import { Product } from './model/product.model';
 
 export default {
     data(){
@@ -6,13 +7,10 @@ export default {
             cart:{
                 total:0
             },
-            product:{
-                title: "Guitarra",
-                description:"22 trastes em aço",
-                price:20,
-                discount:0.2
-            }
-
+            products: [
+                new Product('Guitarra', '22 trastes' , 200, 0.05), 
+                new Product('Guitarra', '22 trastes' , 200, 0.05),
+            ],           
         }
     },
     methods:{
@@ -29,16 +27,7 @@ export default {
 
 <template>
     <main>
-        <article>
-            <h1>{{ product.title}}</h1>
-            <p>{{ product.description }}</p>
-            <p>R$:{{product.price.toFixed(2).replace(',', ',')}}</p>
-            <p>total:{{ cart.total + 1}}</p>
-        </article>
-        <button @click="addItem()">Adicionar</button>
-        <button @click="decItem()">Decrementar</button>
-
-
+        
 
 
         <article>
