@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Product } from './model/product.model';
+import ProductCard from './components/card/ProductCard.vue';
 
 export default {
     data(){
@@ -9,7 +10,7 @@ export default {
             },
             products: [
                 new Product('Guitarra', '22 trastes' , 200, 0.05), 
-                new Product('Guitarra', '22 trastes' , 200, 0.05),
+                new Product('Guitarra2', '22 trastes' , 200, 0.05),
             ],           
         }
     },
@@ -21,21 +22,16 @@ export default {
             this.cart.total -= 1
         },
     },
+    components:{ProductCard},
 }
 
 </script>
 
 <template>
     <main>
-        
-
-
-        <article>
-            <h1>Carrinho</h1>
-            <p>total:{{ cart.total + 1}}</p>
-        </article>
-        <button @click="addItem()">Adicionar</button>
-        <button @click="decItem()">Decrementar</button>
+        <div v-for="product in products">
+            <ProductCard :product="product" />
+        </div>
     </main>
 </template>  
 
