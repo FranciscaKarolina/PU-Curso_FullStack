@@ -1,8 +1,11 @@
-export class Product{
-    constructor(
-        public title:string,
-        public description:string,
-        public price:number,
-        public discount:number
-    ){}
+export interface Category {
+  id: number
+  title: string
+}
+
+export interface Product {
+  id: number
+  name: string
+  price: number
+  category: Category
 }

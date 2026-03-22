@@ -1,61 +1,82 @@
 <script lang="ts">
-import { Product } from './model/product.model';
 import ProductCard from './components/card/ProductCard.vue';
-import { Cart } from './model/cart.model';
+import type { Product } from './model/product.model'; 
+import type { CartItem } from './model/cart.model'; 
 
 export default {
-    data(){
-        return{
-            cart: new Cart(),
-            products: [
-                new Product('Guitarra', '22 trastes' , 200, 0.05), 
-                new Product('Guitarra2', '22 trastes' , 200, 0.05),
-            ],           
-        }
-    },
-    methods:{
-        addItem(product:Product){
-            const existItem = this.cart.list.some((item)=>item.product.title === product.title)
-            if(existItem){
-                this.cart.list.map((item)=>{
-                    if(item.product.title === product.title){
-                        item.quantity +=1
-                        return item
-                    }else{
-                        item
-                    }
-                })
-                 this.cart.total += 1
-            }else{
-                this.cart.list.push({product, quantity:1})
-                this.cart.total += 1
-                 }
-             },
-        decItem(){
-            this.cart.total -= 1
-        },
-    },
-    components:{ProductCard},
-}
+  components: { ProductCard },
 
+  data() {
+    return {
+      products: [
+        {
+          id: 1,
+          name: 'Notebook',
+          price: 3000,
+          category: { id: 1, title: 'Eletrônicos' }
+        },
+        {
+          id: 2,
+          name: 'Monitor',
+          price: 1500,
+          category: { id: 1, title: 'Eletrônicos' }
+        }
+      ] as Product[],
+
+      cartItems: [] as CartItem[]
+    }
+  },
+
+  methods: {
+    addToCart(product: Product) {
+      const item = this.cartItems.find(i => i.product.id === product.id)
+
+      if (item) {
+        item.quantity++
+      } else {
+        this.cartItems.push({
+          product,
+          quantity: 1
+        })
+      }
+    }
+  },
+
+  computed: {
+    totalItems(): number {
+      return this.cartItems.reduce((total, item) => total + item.quantity, 0)
+    },
+
+    totalPrice(): number {
+      return this.cartItems.reduce(
+        (total, item) => total + item.product.price * item.quantity,
+        0
+      )
+    }
+  }
+}
 </script>
 
 <template>
-    <main>
-        <div v-for="product in products">
-            <ProductCard :product="product" @on-click="addItem"/>
-        </div>
-    </main>
-    <div>
-        <h1>Carrinho</h1>
-        <div v-for="item in cart.list">
-            <h1>{{ item.product.title }}</h1>
-            <p>{{ item.quantity }}</p>
-        </div>
-        <p>total: {{ cart.total }}</p>
-    </div>
-</template>  
+  <main>
+    <h1>Produtos</h1>
+    <ProductCard
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+      @add-to-cart="addToCart"
+    />
 
+    <hr />
 
-<style></style>
+    <h2>Carrinho</h2>
+    <p>Total de itens: {{ totalItems }}</p>
+    <p>Total: R$ {{ totalPrice }}</p>
 
+    <ul>
+      <li v-for="item in cartItems" :key="item.product.id">
+        {{ item.product.name }} x {{ item.quantity }}
+      </li>
+    </ul>
+  </main>
+</template>

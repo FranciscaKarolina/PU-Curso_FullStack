@@ -1,27 +1,27 @@
-<template> 
-    <article>
-        <h1>{{ product?.title}}</h1>
-        <p>{{ product?.description }}</p>
-        <p>R$:{{product?.price.toFixed(2).replace(',', ',')}}</p>
-        <button @click="addItem(product!)">Adicionar</button>
-    </article>
-</template>
 <script lang="ts">
-import { Product } from '@/model/product.model';
-import { addSyntheticTrailingComment } from 'typescript';
-import { defineComponent, type PropType } from 'vue';
+import type { Product } from '@/model/product.model'; 
 
-export default defineComponent({
-    props:{
-        product:{
-            type:Object as PropType<Product>,
-        },
-    },
-    emits:["onClick"],
-    methods:{
-        addItem(product:Product){
-            this.$emit('onClick', product)
-        },
-    },
-})
+export default {
+  props: {
+    product: {
+      type: Object as () => Product,
+      required: true
+    }
+  },
+  methods: {
+    add() {
+      this.$emit('add-to-cart', this.product)
+    }
+  }
+}
 </script>
+
+<template>
+  <div class="card">
+    <h2>{{ product.name }}</h2>
+    <p>Preço: R$ {{ product.price }}</p>
+    <p>Categoria: {{ product.category.title }}</p>
+
+    <button @click="add">Adicionar</button>
+  </div>
+</template>
